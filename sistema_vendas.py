@@ -65,10 +65,44 @@ while True:
             print(f"Subtotal da Compra R${subtotal}")
 
     elif opcao == 4:
-        print("Finalizando Compra")
+
+        if carrinho:
+            print("<>" * 15)
+            print("\n=== Finalizar Compra ===")
+            print("<>" * 15)
+            total_compra = sum(item["preco_total"] for item in carrinho)
+            cupom = input("Digite um cupom (ou pressione Enter): ").upper()
+            desconto = 0
+            if cupom == "DEV10":
+                desconto = total_compra * 0.1
+                print("Cupom Valido: Voce obteve 10% de desconto.")
+            elif cupom == "DEV20" and total_compra > 500:
+                desconto = total_compra * 0.2
+                print("Cupom valido: Voce obteve 20% de desconto.")
+            elif len(cupom) == 0:
+                print("Nenhum cupom adicionado.")
+            else:
+                print("Cupom invalido, nenhum desconto adicionado.")
+
+            total = total_compra - desconto
+
+            print("------RESUMO DO PEDIDO-------")
+            print(f"Subtotal da compra: R${subtotal:.2f}")
+            print(f"Desconto: R$ {desconto:.2f}")
+            print(f"Valor final: R${subtotal - desconto:.2f}")
+            print("-" * 30)
+            carrinho.clear()
+        else:
+            print("Não há itens no carrinho para finalizar.")
+
 
     elif opcao == 5:
-        print("Saindo...")
+        print("<>" * 15)
+        print("Encerrando!!!")
+        print("<>" * 15)
+        break
+    else:
+        print("Opção invalida")
 
 
 
